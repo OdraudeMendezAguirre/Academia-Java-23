@@ -2,7 +2,7 @@ package odraude.entidades;
 
 import odraude.interfaz.Empleado;
 
-public class TrabajadorDormilon extends Empleado{
+public class TrabajadorDormilon extends Empleado{//Un tipo de empleado
 
 	public TrabajadorDormilon(String nombre, int edad) {
 		super(nombre, edad);
