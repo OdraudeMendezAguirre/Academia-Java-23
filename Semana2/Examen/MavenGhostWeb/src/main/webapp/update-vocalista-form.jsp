@@ -22,7 +22,7 @@
 		
 			<input type="hidden" name="command" value="UPDATE" />
 
-			<input type="hidden" name="vocalistaId" value="${THE_VOCALISTA.id}" />
+			<input type="hidden" name="vocalistaId" value="${THE_VOCALISTA.idVocalista}" />
 			
 			<table>
 				<tbody>

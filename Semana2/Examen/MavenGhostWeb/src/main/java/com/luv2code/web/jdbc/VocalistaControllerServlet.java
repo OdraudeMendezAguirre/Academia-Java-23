@@ -86,10 +86,10 @@ public class VocalistaControllerServlet extends HttpServlet {
 		throws Exception {
 
 		// read student id from form data
-		String theVocalistaId = request.getParameter("vocalistaId");
+		String idVocalista = request.getParameter("VocalistaId");
 		
 		// delete student from database
-		vocalistaDbUtil.deleteVocalista(theVocalistaId);
+		vocalistaDbUtil.deleteVocalista(idVocalista);
 		
 		// send them back to "list students" page
 		listVocalista(request, response);
@@ -99,7 +99,8 @@ public class VocalistaControllerServlet extends HttpServlet {
 		throws Exception {
 
 		// read student info from form data
-		int id = Integer.parseInt(request.getParameter("vocalistaId"));
+		String idVocalista = request.getParameter("vocalistaId");
+		int id = Integer.parseInt(idVocalista);
 		String nombre = request.getParameter("nombre");
 		
 		// create a new student object
@@ -117,10 +118,10 @@ public class VocalistaControllerServlet extends HttpServlet {
 		throws Exception {
 
 		// read student id from form data
-		String theVocalistaId = request.getParameter("vocalistaId");
+		String theVocalistaId = request.getParameter("VocalistaId");
 		
 		// get student from database (db util)
-		Vocalista theVocalista = vocalistaDbUtil.getVocalista(theVocalistaId);
+		Vocalista theVocalista = vocalistaDbUtil.getVocalista(Integer.parseInt(theVocalistaId));
 		
 		// place student in the request attribute
 		request.setAttribute("THE_VOCALISTA", theVocalista);

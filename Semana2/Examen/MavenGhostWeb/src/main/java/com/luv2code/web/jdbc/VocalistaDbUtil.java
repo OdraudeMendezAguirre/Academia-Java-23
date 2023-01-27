@@ -30,7 +30,7 @@ public class VocalistaDbUtil {
 			myConn = dataSource.getConnection();
 			
 			// create sql statement
-			String sql = "select * from vocalista order by nombre";
+			String sql = "select * from vocalista";
 			
 			myStmt = myConn.createStatement();
 			
@@ -41,12 +41,12 @@ public class VocalistaDbUtil {
 			while (myRs.next()) {
 				
 				// retrieve data from result set row
-				int id = myRs.getInt("idVocalista");
+				int idVocalista = myRs.getInt("idVocalista");
 				String nombre = myRs.getString("nombre");
 
 				
 				// create new student object
-				Vocalista tempVocalista = new Vocalista(id, nombre);
+				Vocalista tempVocalista = new Vocalista(idVocalista, nombre);
 				
 				// add it to the list of students
 				vocalistas.add(tempVocalista);				
@@ -109,30 +109,30 @@ public class VocalistaDbUtil {
 		}
 	}
 
-	public Vocalista getVocalista(String theVocalistaId) throws Exception {
+	public Vocalista getVocalista(int theVocalistaId) throws Exception {
 
 		Vocalista theVocalista = null;
 		
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
 		ResultSet myRs = null;
-		int vocalistaId;
+		int idVocalista;
 		
 		try {
 			// convert student id to int
-			vocalistaId = Integer.parseInt(theVocalistaId);
+			idVocalista = theVocalistaId;
 			
 			// get connection to database
 			myConn = dataSource.getConnection();
 			
 			// create sql to get selected student
-			String sql = "select * from vocalista where id=?";
+			String sql = "select * from vocalista where idVocalista=?";
 			
 			// create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
 			// set params
-			myStmt.setInt(1, vocalistaId);
+			myStmt.setInt(1, idVocalista);
 			
 			// execute statement
 			myRs = myStmt.executeQuery();
@@ -142,10 +142,10 @@ public class VocalistaDbUtil {
 				String nombre = myRs.getString("nombre");
 				
 				// use the studentId during construction
-				theVocalista = new Vocalista(vocalistaId, nombre);
+				theVocalista = new Vocalista(idVocalista, nombre);
 			}
 			else {
-				throw new Exception("No se encontro al vocalista con id: " + vocalistaId);
+				throw new Exception("No se encontro al vocalista con id: " + idVocalista);
 			}				
 			
 			return theVocalista;
@@ -175,7 +175,7 @@ public class VocalistaDbUtil {
 			
 			// set params
 			myStmt.setString(1, theVocalista.getNombre());
-			myStmt.setInt(4, theVocalista.getIdVocalista());
+			myStmt.setInt(2, theVocalista.getIdVocalista());
 			
 			// execute SQL statement
 			myStmt.execute();
@@ -193,7 +193,7 @@ public class VocalistaDbUtil {
 		
 		try {
 			// convert student id to int
-			int vocalistaId = Integer.parseInt(theVocalistaId);
+			int idVocalista = Integer.parseInt(theVocalistaId);
 			
 			// get connection to database
 			myConn = dataSource.getConnection();
@@ -205,7 +205,7 @@ public class VocalistaDbUtil {
 			myStmt = myConn.prepareStatement(sql);
 			
 			// set params
-			myStmt.setInt(1, vocalistaId);
+			myStmt.setInt(1, idVocalista);
 			
 			// execute sql statement
 			myStmt.execute();
