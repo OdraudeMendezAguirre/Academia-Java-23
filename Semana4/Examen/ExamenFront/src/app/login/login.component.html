@@ -1,0 +1,19 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+<section class="iniciar-sesion">
+    <section class="tarjeta-inicio">
+      <h1>Iniciar Sesión</h1>
+      <form (ngSubmit)="Login(f)" #f="ngForm">
+        <label for="floatingInput">Nombre</label>
+        <input type="text" id="usernameOrEmail" class="form-control" name="usernameOrEmail" [(ngModel)]="user.usernameOrEmail" >
+
+        <label for="inputPassword6" >Contraseña</label>
+        <input type="password" id="password" class="form-control" name="password" [(ngModel)]="user.password">
+        
+
+        <section class="botones">
+          <button type="submit" class="mybtn mybtn-red">Iniciar Sesión</button>
+        </section>
+      </form>
+    </section>
+  </section>

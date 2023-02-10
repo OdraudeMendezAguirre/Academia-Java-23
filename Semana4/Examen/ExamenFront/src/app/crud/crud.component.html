@@ -1,0 +1,128 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+
+<!-- Navbar -->
+<nav class="navbar bg-dark " data-bs-theme="dark">
+    <div class="container-sm">
+      <a class="navbar-brand">Lista de Alumnos</a>
+      <input type="number" class="" id="id" [(ngModel)]="id">
+      <button class="btn btn-outline-light" type="button" (click)="buscarId(id)" data-bs-toggle="modal" data-bs-target="#modalbuscar">Buscar ID</button>
+  
+      <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalagregar">Agregar Alumno</button>
+      </div> 
+  </nav>
+  
+  <div class="container-sm">
+    <ol class="list-group" *ngFor="let alumno of lista">
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold" (click)="select(alumno)">{{alumno.nombre}}</div>
+            Calificacion: {{alumno.calificacion}}
+          </div>
+        <div class="badge">
+          <button type="button" class="btn btn-outline-info" (click)="setAlumno(alumno)" data-bs-toggle="modal" data-bs-target="#modalmodificar">Modificar</button>
+        </div>
+        <div class="badge">
+          <button type="button" class="btn btn-outline-danger" (click)="setAlumno(alumno)" data-bs-toggle="modal" data-bs-target="#modaleliminar">Eliminar</button>
+        </div>
+      </li>
+    </ol>
+  
+  <!-- Modal Agregar -->
+  <div class="modal fade" id="modalagregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Alumno</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nombre" placeholder="Paquito" [(ngModel)]="alumnoTemporal.nombre">
+            <label for="floatingNombre">Nombre</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="calificacion" placeholder="8.5" [(ngModel)]="alumnoTemporal.calificacion">
+            <label for="floatingCalificacion">Calificacion</label>
+          </div>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancelar()" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="guardar()" data-bs-dismiss="modal">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Modificar -->
+  <div class="modal fade" id="modalmodificar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar Alumno</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nombre" placeholder={{alumnoTemporal.nombre}} [(ngModel)]="alumnoTemporal.nombre">
+            <label for="floatingNombre">Nombre</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="calificacion" placeholder={{alumnoTemporal.calificacion} [(ngModel)]="alumnoTemporal.calificacion">
+            <label for="floatingCalificacion">Calificacion</label>
+          </div>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancelar()" data-bs-dismiss="modal" >Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="modificar()" data-bs-dismiss="modal">Modificar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Eliminar -->
+  <div class="modal" id="modaleliminar" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Estas por eliminar a {{alumnoTemporal.nombre}}, ¿Deseas continuar?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancelar()" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="eliminar()" data-bs-dismiss="modal">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Buscar Id -->
+  <div class="modal" id="modalbuscar" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h3>Id: {{alumnoTemporal.id}}</h3>
+          <h3>Nombre: {{alumnoTemporal.nombre}}</h3>
+          <h3>Calificacion: {{alumnoTemporal.calificacion}}</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancelar()" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalmodificar" data-bs-dismiss="modal">Modificar</button>
+          <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modaleliminar">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </div>
